@@ -2,6 +2,7 @@
 include("conn.php");
 $message = "";
 $erorr = false;
+$security_code = md5("h:i:s");
 function fieldarefillin($name,$email,$pass, &$msg){
     if(empty($name)||empty($email)||empty($pass)){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($email)){
@@ -33,6 +34,20 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
     $r = mysqli_query($con,"INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashedPass')");
     $erorr = true;
     $message = "You re register has been succesfully";
+    if($r){
+        require_once "send_email.php";
+        $mail->addAddress($email);
+        $mail->Subject = "Verfication";
+        $mail->Body = '<h2>Hello '.$name.',</h2>
+    <p>Thank you for registering. Please click the link below to activate your account:</p>
+        <a href="http://localhost/6h%20course/Login/active.php?code='.$security_code.'">
+            Activate Now
+        </a>
+         <br><br>
+    <small>If you didn’t request this, you can ignore this email.</small>';
+        
+        $mail->send();
+    }
     }
     
 }
@@ -47,21 +62,21 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
     <title>Register</title>
 </head>
 <body>
-    
+    <?php include("header.php"); ?>
 <form action="" method="post">
 <div class="container mt-5">
     <div class="card p-3">
     <h1 class="card-title text-light bg-primary p-3">Register</h1>
     <div class="form-floating mb-3">
-  <input type="text" class="form-control" id="floatingInput" placeholder="Enter Your Name" name="name">
+  <input type="text" class="form-control" id="floatingInput" placeholder="Enter Your Name" name="name" value="<?php if(isset($_POST['name'])) echo htmlspecialchars($_POST['name'])?>">
   <label for="floatingInput">Name</label>
 </div>
 <div class="form-floating">
-  <input type="email" class="form-control" id="floatingPassword" placeholder="Enter Your Email" name="email">
+  <input type="email" class="form-control" id="floatingPassword" placeholder="Enter Your Email" name="email" value="<?php if(isset($_POST['email'])) echo htmlspecialchars($_POST['email'])?>">
   <label for="floatingPassword">Email</label>
   </div><br>
 <div class="form-floating">
-  <input type="text" class="form-control" id="floatingPassword" placeholder="Enter Your Password" name="password">
+  <input type="text" class="form-control" id="floatingPassword" placeholder="Enter Your Password" name="password" value="<?php if(isset($_POST['password'])) echo htmlspecialchars($_POST['password'])?>">
   <label for="floatingPassword">password</label>
   </div>
   <br>
