@@ -46,7 +46,11 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
          <br><br>
     <small>If you didn’t request this, you can ignore this email.</small>';
         
-        $mail->send();
+        if($mail->send()){
+            header("Location: login.php");
+            exit();
+        }
+
     }
     }
     
