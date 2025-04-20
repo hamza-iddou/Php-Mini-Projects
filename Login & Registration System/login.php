@@ -3,7 +3,9 @@ include("conn.php");
 $code = "";
 $message = "";
 $err = false;
+if(isset($_GET['code'])){
 $code = mysqli_real_escape_string($con,$_GET['code']);
+}
 session_start();
 
 if($code != ""){
