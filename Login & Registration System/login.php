@@ -38,6 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_password'] = $user['password'];
+        $_SESSION['user_name'] = $user['name'];
         $err = false;
         $message = "Login hass benn succes fully";
         header("Location: main.php");
@@ -46,8 +47,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $message = "Invalid password or email";
     }
 }
-
-
 
 ?>
 
