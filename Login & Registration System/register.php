@@ -31,7 +31,7 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
     $pass = mysqli_real_escape_string($con,$_POST['password']);
     $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
     if(validemail($con,$email,$message)){
-    $r = mysqli_query($con,"INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashedPass')");
+    $r = mysqli_query($con,"INSERT INTO users (name, email, password, security_code) VALUES ('$name', '$email', '$hashedPass', '$security_code')");
     $erorr = true;
     $message = "You re register has been succesfully";
     if($r){
@@ -40,15 +40,15 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
         $mail->Subject = "Verfication";
         $mail->Body = '<h2>Hello '.$name.',</h2>
     <p>Thank you for registering. Please click the link below to activate your account:</p>
-        <a href="http://localhost/6h%20course/Login/active.php?code='.$security_code.'">
+        <a href="http://localhost/PHPProject/Login%20&%20Registration%20System/login.php?code='.$security_code.'">
             Activate Now
         </a>
          <br><br>
     <small>If you didn’t request this, you can ignore this email.</small>';
         
         if($mail->send()){
-            header("Location: login.php");
-            exit();
+        $message = "You re register has been succesfully, an email has been sent for u to verify you account";
+
         }
 
     }

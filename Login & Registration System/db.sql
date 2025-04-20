@@ -4,3 +4,7 @@ CREATE TABLE Users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
+ALTER TABLE users ADD COLUMN  security_code VARCHAR(255);
+ALTER TABLE users ADD COLUMN  is active BOOLEAN DEFAULT 0;
+
+
