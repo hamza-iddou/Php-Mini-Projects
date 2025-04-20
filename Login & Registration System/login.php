@@ -1,11 +1,9 @@
 <?php 
 include("conn.php");
-
 $code = "";
 $message = "";
 $err = false;
 $code = mysqli_real_escape_string($con,$_GET['code']);
-
 session_start();
 
 if($code != ""){
@@ -31,20 +29,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = mysqli_real_escape_string($con, $email);
     $password = mysqli_real_escape_string($con, $password);
 
-    $r =mysqli_query($con,"SELECT * FROM WHERE email = '$email' AND password = '$password'");
+    $r =mysqli_query($con,"SELECT * FROM users WHERE email = '$email'");
     $user = mysqli_fetch_assoc($r);
 
-    if($user){
+    if($user && password_verify($password, $user['password'])){
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_password'] = $user['password'];
-
+        $err = false;
         $message = "Login hass benn succes fully";
+        header("Location: main.php");
+        exit();
     }else{
         $message = "Invalid password or email";
     }
-    
-    
 }
 
 
@@ -80,8 +78,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <label for="floatingPassword">Password</label>
   </div><br>
   <input type="submit" value="Log in" class="text-center btn btn-primary" name="login" >
+  <?php echo "<p>".$message."</p>";?>
     </form>
-
     </div>
 
 </body>
