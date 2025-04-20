@@ -35,6 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $user = mysqli_fetch_assoc($r);
 
     if($user && password_verify($password, $user['password'])){
+        if($user['is_active']){
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_password'] = $user['password'];
@@ -43,6 +44,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $message = "Login hass benn succes fully";
         header("Location: main.php");
         exit();
+        }else{
+        $message = "Pleas verfy You account by you email";
+        }
+        
     }else{
         $message = "Invalid password or email";
     }
@@ -79,7 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <label for="floatingPassword">Password</label>
   </div><br>
   <input type="submit" value="Log in" class="text-center btn btn-primary" name="login" >
-  <?php echo "<p>".$message."</p>";?>
+  <?php echo "<p class='mt-2'>".$message."</p>";?>
     </form>
     </div>
 
