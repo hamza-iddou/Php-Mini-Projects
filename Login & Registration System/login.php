@@ -15,11 +15,11 @@ $user = mysqli_fetch_assoc($r);
 if($user){
     $up = mysqli_query($con,"UPDATE users SET is_active = 1 where id =".(int)$user['id']);
     if($up){
-        $message = "Account has been Activated";
+        $message = "Account has been activated.";
         $err = true;
     }
 }else{
-    $message = "Invalid security code or expierd security code";
+    $message = "Invalid or expired security code.";
 }
 }
 
@@ -41,11 +41,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_password'] = $user['password'];
         $_SESSION['user_name'] = $user['name'];
         $err = false;
-        $message = "Login hass benn succes fully";
+        $message = "Login has been successful";
         header("Location: main.php");
         exit();
         }else{
-        $message = "Pleas verfy You account by you email";
+        $message = "Please verify your account by checking your email.";
         }
         
     }else{
@@ -84,8 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <input type="submit" value="Log in" class="text-center btn btn-primary" name="login" >
 
   <?php
-  if($err){
-
+  if(!$err){
       echo "<p class= 'mt-2 text-danger'>".$message."</p>";
   }else{
     echo "<p class= 'mt-2 text-success'>".$message."</p>";

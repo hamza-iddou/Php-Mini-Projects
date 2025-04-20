@@ -9,7 +9,7 @@ function fieldarefillin($name,$email,$pass, &$msg){
             $msg = "Enter a Valid Email";
             return false;
         }
-        $msg = "All field are required";
+        $msg = "All fields are required";
         return false;
     }else{
     $msg = "";
@@ -33,7 +33,7 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
     if(validemail($con,$email,$message)){
     $r = mysqli_query($con,"INSERT INTO users (name, email, password, security_code) VALUES ('$name', '$email', '$hashedPass', '$security_code')");
     $erorr = true;
-    $message = "You re register has been succesfully";
+    $message = "Your registration has been successful.";
     if($r){
         require_once "send_email.php";
         $mail->addAddress($email);
@@ -47,7 +47,7 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
     <small>If you didn’t request this, you can ignore this email.</small>';
         
         if($mail->send()){
-        $message = "You re register has been succesfully, an email has been sent for u to verify you account";
+        $message = "Your registration was successful. An email has been sent to you to verify your account.";
 
         }
 
@@ -81,12 +81,11 @@ if(isset($_POST['register']) && fieldarefillin($_POST['name'],$_POST['email'],$_
   </div><br>
 <div class="form-floating">
   <input type="text" class="form-control" id="floatingPassword" placeholder="Enter Your Password" name="password" value="<?php if(isset($_POST['password'])) echo htmlspecialchars($_POST['password'])?>">
-  <label for="floatingPassword">password</label>
+  <label for="floatingPassword">Password</label>
   </div>
   <br>
   <?php if($message != ""){
         if($erorr == false){
-
             echo "<p class='text-danger '>".$message."</p>";
         }else{
             echo "<p class='text-success '>".$message."</p>";
