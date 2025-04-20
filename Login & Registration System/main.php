@@ -25,16 +25,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Main</title>
 </head>
 <body>
-    <H1>Welcome <?= $_SESSION['user_name']?></H1>
+    <H1 class="text-center mt-2">Welcome <?= $_SESSION['user_name']?></H1>
     <div class="container">
-    <div class="card" style="width: 18rem;">
+    <div class="card p-2" style="width: 18rem;">
   <img src="./images/image.png" class="card-img-top">
   <div class="card-body">
     <h5 class="card-title">HI! <?= $_SESSION['user_name']?> id#<?= $_SESSION['user_id']?></h5>
     <p class="card-text">email : <?= $_SESSION['user_email']?></p>
   </div>
   <form action="" method="POST">
-<input type="submit" value="log out" name="logout">
+<input type="submit" value="log out" name="logout" class="btn btn-danger mt-2 text-center">
   </form>
 </div>
     </div>

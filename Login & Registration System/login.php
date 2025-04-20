@@ -55,8 +55,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +82,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <label for="floatingPassword">Password</label>
   </div><br>
   <input type="submit" value="Log in" class="text-center btn btn-primary" name="login" >
-  <?php echo "<p class='mt-2'>".$message."</p>";?>
+
+  <?php
+  if($err){
+
+      echo "<p class= 'mt-2 text-danger'>".$message."</p>";
+  }else{
+    echo "<p class= 'mt-2 text-success'>".$message."</p>";
+  }
+  ?>
     </form>
     </div>
 
