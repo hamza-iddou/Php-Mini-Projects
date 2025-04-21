@@ -1,4 +1,5 @@
 <?php 
+
 include("conn.php");
 session_start();
 
@@ -6,12 +7,21 @@ if(empty($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
 }
+$r = mysqli_query($con, "SELECT * FROM posts");
+$posts = mysqli_fetch_all($r, MYSQLI_ASSOC);
 
-if(isset($_GET['logout'])){
-    session_destroy();
-    header("Location: login.php");
-    exit();
-}
+
+    if(isset($_POST['creat'])){
+        header("Location: creat_post.php");
+        exit();
+    }elseif(isset($_POST['edit'])){
+        header("Location: edit_profile.php");
+        exit();
+    }elseif(isset($_POST['logout'])){
+        session_destroy();
+        header("Location: login.php");
+        exit();
+    }
 
 ?>
 <!DOCTYPE html>
@@ -34,10 +44,10 @@ if(isset($_GET['logout'])){
         <h1>Profile</h1>
         <img src="./images/image.png" class="rounded-circle mb-2 image" width="80" height="80" alt="User">
         <h5><?= $_SESSION['user_name']?></h5>
-        <form action="" post="POST">
-        <button class="btn btn-success btn-sm w-100">Creat Post</button>
-        <button class="btn btn-primary btn-sm w-100 my-1">Edit Profile</button>
-        <button class="btn btn-danger btn-sm w-100">Logout</button>
+        <form action="" method="POST">
+        <button class="btn btn-success btn-sm w-100" name="creat">Creat Post</button>
+        <button class="btn btn-primary btn-sm w-100 my-1" name="edit">Edit Profile</button>
+        <button class="btn btn-danger btn-sm w-100" name="logout">Logout</button>
         </form>
       </div>
     </div>
