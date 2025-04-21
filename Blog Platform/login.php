@@ -41,7 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <body>
     <div class="container">
     <h1 class="text-center mt-3">Welcome To My Blog</h1>
-
     <form action="" method="POST">
     <div class="container mt-5">
     <div class="card p-3">
@@ -56,7 +55,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <label for="floatingPassword">Password</label>
   </div><br>
   <input type="submit" value="Log in" class="text-center btn btn-primary" name="login" >
-
   <?php
   if(isset($_POST['login'])){
       if($err){
