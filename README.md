@@ -16,6 +16,9 @@ This repo contains  small yet practical projects** built using **PHP & MySQL** t
 
 1. **Login & Registration System**  
    A full auth system with hashed passwords and protected dashboard.
+2. **Blog Platform**
+   A lightweight blog platform with user authentication, post creation, commenting, and admin content management.
+   
 
 ---
 
