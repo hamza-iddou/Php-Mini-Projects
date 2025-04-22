@@ -7,8 +7,13 @@ if(empty($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
 }
-$r = mysqli_query($con, "SELECT * FROM posts");
-$posts = mysqli_fetch_all($r, MYSQLI_ASSOC);
+$post_sql = mysqli_query($con, "SELECT * FROM posts");
+$posts = mysqli_fetch_all($post_sql, MYSQLI_ASSOC);
+
+$user_sql = mysqli_query($con,"SELECT * FROM users");
+$users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC); 
+
+
 
 
     if(isset($_POST['creat'])){
@@ -52,12 +57,25 @@ $posts = mysqli_fetch_all($r, MYSQLI_ASSOC);
       </div>
     </div>
 
-    
     <div class="col-md-6 mb-4">
-      <div class="card p-3">
-        <h4 class="mb-3">Post Title</h4>
-        <p>Post content goes here. Display your blog content in the center.</p>
+    <?php foreach($posts as $post):?>
+      <div class="card p-3 m-2">
+        <h6 class="">Created By <span class="text-info">
+          <?php 
+          foreach($users as $u){
+            if($u['id'] == $post['user_id']){
+                echo " ".$u['username'];
+                break;
+            }
+        }?>
+        </span>
+        </h6>
+        <h4 class="mb-3"><?= $post['title']?></h4>
+        <img src="<?= $post['image']?>" alt="">
+        <p><?= $post['content']?></p>
       </div>
+
+      <?php endforeach?>
     </div>
 
     
