@@ -1,7 +1,8 @@
 <?php 
 include "conn.php";
-
 session_start();
+$select_user = mysqli_query($con, "SELECT * FROM users WHERE id='" . $_SESSION['user_id'] . "'");
+$user = mysqli_fetch_all($select_user,MYSQLI_ASSOC);
 
 $message = "";
 
@@ -9,38 +10,45 @@ if(empty($_SESSION)){
     header("location:login.php");
     exit();
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-if($_POST['cancel']){
-    header("location: post.php");
-}
-if($_POST['cratepost']){
-    $tile = $_POST['title'];
-    $content = $_POST['content'];
-    $category = $_POST['category'];
-    $status = $_POST['status'];
-    $image = $_FILES['image']['name'];
-    $image_tmp = $_FILES['image']['tmp_name'];
+
+//if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+
+    if (isset($_POST['cratepost'])) {
+        $tile = mysqli_real_escape_string($con, $_POST['title']);
+        $content = mysqli_real_escape_string($con, $_POST['content']);
+        $category = mysqli_real_escape_string($con, $_POST['category']);
+        $status = mysqli_real_escape_string($con, $_POST['status']);
+        $image = $_FILES['image']['name'];
+        $image_tmp = $_FILES['image']['tmp_name'];
+        $user_id_post = (int) $_SESSION['user_id'];
     
-    if(!is_dir("images")){
-        mkdir("images");
+        if (!is_dir("images")) {
+            mkdir("images");
+        }
+    
+        $image_path = "images/" . $image;
+    
+        // Move uploaded image to the desired directory
+        if (move_uploaded_file($image_tmp, $image_path)) {
+            // Insert the post data into the database
+            $r = mysqli_query($con, "INSERT INTO posts(title, content, image, category, status, user_id) 
+                                    VALUES ('$tile', '$content', '$image_path', '$category', '$status', $user_id_post)");
+    
+            if ($r) {
+                header("Location: index.php");
+                exit();
+            } else {
+                $message = "Post creation failed: " . mysqli_error($con);
+            }
+        } else {
+            $message = "Failed to upload image.";
+        }
     }
     
-    $image_path = "images/".$image;
 
-    move_uploaded_file($image, $image_path);
-
-    $r = mysqli_query($con,"INSERT INTO posts(title, content, image, category, status), VALUES ('$tile', '$content', '$image_path', '$category','$status')");
-
-    if($r){
-        header("Location: index.php");
-        exit();
-    }else{
-        $message = "post won't create";
-    }
-}
-
-}
+//}
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +65,7 @@ if($_POST['cratepost']){
     <div class="card">
         <div class="card-body">
 
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Post Title</label>
                     <input type="text" class="form-control" id="title" name="title" required>
@@ -89,10 +97,8 @@ if($_POST['cratepost']){
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2" name="cratepost">Create Post</button>
-                </form>
-                <form action="" method="post">
                 <button type="submit" class="btn btn-danger mt-2" name="cancel">Cancel</button>
-            </form>
+                </form>
         </div>
     </div>
 
