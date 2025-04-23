@@ -20,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_password'] = $user['password'];
         $_SESSION['user_name'] = $user['username'];
+        $_SESSION['user_image'] = $user['image'];
         $err = false;
         $message = "Login has been successful";
         header("Location: index.php");

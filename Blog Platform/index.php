@@ -2,6 +2,8 @@
 include("conn.php");
 session_start();
 
+
+
 if(empty($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
@@ -40,7 +42,7 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
     <div class="col-md-3 mb-4">
       <div class="card p-3 text-center">
         <h1>Profile</h1>
-        <img src="./images/image.png" class="rounded-circle mb-2 image" width="80" height="80" alt="User">
+        <img src="<?=$_SESSION['user_image']?>" class="rounded-circle mb-2 image" width="80" height="80" alt="User">
         <h5><?= $_SESSION['user_name']?></h5>
         <form action="" method="POST">
         <button class="btn btn-success btn-sm w-100" name="creat">Creat Post</button>

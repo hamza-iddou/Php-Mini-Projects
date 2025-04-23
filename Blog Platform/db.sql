@@ -19,3 +19,5 @@ CREATE TABLE posts (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+ALTER TABLE users
+ADD image varchar(255) DEFAULT 'images/image.png';
