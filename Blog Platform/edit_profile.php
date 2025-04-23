@@ -3,6 +3,7 @@ include("conn.php");
 session_start();
 
 $msg = "";
+$err = false;
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['cancel'])){
         header("Location: index.php");
@@ -12,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $u_name = $_POST['username'];
         $u_email = $_POST['email'];
         $u_password = $_POST['password'];
-        if(empty($_FILE['image']['name'])){
+        if(empty($_FILES['image']['name'])){
             $image_path = 'images/image.png';
             $r = mysqli_query($con,"UPDATE users SET username='$u_name', email='$u_email', password='$u_password', image='$image_path' WHERE id='$_SESSION[user_id]'");
                 if($r){
@@ -25,6 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     
                 }else{
                     $msg = "Cant update Your profile";
+                    $err = true;
                 }
         }else{
             $image = $_FILES['image']['name'];
@@ -41,12 +43,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $msg = "Your account has been updated successfully";
                     $_SESSION['user_name'] = $u_name;
                     $_SESSION['user_email'] = $u_email;
-                    $_SESSION['user_passwor'] = $u_password;
+                    $_SESSION['user_password'] = $u_password;
+                    $_SESSION['user_image'] = $image_path;
                     header("Location: index.php");
                     exit();
                     
                 }else{
                     $msg = "Cant update Your profile";
+                    $err = true;
+
                 }
             }
         }
@@ -91,9 +96,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="floatingPassword">password</label>
                 </div>
                 <input type="submit" value="Edit You're Profile" class="btn btn-success mt-2" name="edit">
-                <input type="submit" value="Edit You're Profile" class="btn btn-danger mt-2" name="cancel">
+                <input type="submit" value="Cancel" class="btn btn-danger mt-2" name="cancel">
             </form>
         </div>
+        <?php 
+            if(isset($_POST['edit'])){
+                if($err){
+                    echo "<p class='text-danger'>".$msg."</p>";
+                }else{
+                    echo "<p class='text-success'>".$msg."</p>";
+                }
+            }
+        ?>
     </div>
 </body>
 

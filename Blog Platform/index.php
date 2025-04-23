@@ -2,8 +2,6 @@
 include("conn.php");
 session_start();
 
-
-
 if(empty($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
@@ -52,7 +50,9 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
       </div>
     </div>
 
+
     <div class="col-md-6 mb-4">
+      <?php $posts = array_reverse($posts);?>
     <?php foreach($posts as $post):?>
       <div class="card p-3 m-2">
 
@@ -68,8 +68,9 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
         </span>
         </h6>
         <h4 class="mb-3"><?= $post['title']?></h4>
+        <p><?= substr($post['content'], 0, 200) ?>...
+        <a href="post.php?id=<?= $post['id'] ?>">View More</a></p>
         <img src="<?= $post['image']?>" alt="">
-        <p><?= $post['content']?></p>
         </  div>
       </div>
       <?php endforeach?>
