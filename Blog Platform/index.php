@@ -1,5 +1,4 @@
 <?php 
-
 include("conn.php");
 session_start();
 
@@ -13,9 +12,6 @@ $posts = mysqli_fetch_all($post_sql, MYSQLI_ASSOC);
 $user_sql = mysqli_query($con,"SELECT * FROM users");
 $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC); 
 
-
-
-
     if(isset($_POST['creat'])){
         header("Location: creat_post.php");
         exit();
@@ -27,7 +23,6 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
         header("Location: login.php");
         exit();
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +37,6 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
     <h1 class="text-center text-light bg-dark p-5">Welcome to our Blog</h1>
     <div class="container mt-4">
   <div class="row">
-
-    
     <div class="col-md-3 mb-4">
       <div class="card p-3 text-center">
         <h1>Profile</h1>
@@ -60,6 +53,8 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
     <div class="col-md-6 mb-4">
     <?php foreach($posts as $post):?>
       <div class="card p-3 m-2">
+
+        
         <h6 class="">Created By <span class="text-info">
           <?php 
           foreach($users as $u){
@@ -73,8 +68,8 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
         <h4 class="mb-3"><?= $post['title']?></h4>
         <img src="<?= $post['image']?>" alt="">
         <p><?= $post['content']?></p>
+        </  div>
       </div>
-
       <?php endforeach?>
     </div>
 
@@ -85,7 +80,6 @@ $users = mysqli_fetch_all($user_sql, MYSQLI_ASSOC);
         <p>Another small post preview or recent activity...</p>
       </div>
     </div>
-
   </div>
 </div>    
 </body>

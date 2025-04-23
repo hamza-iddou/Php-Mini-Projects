@@ -11,10 +11,6 @@ if(empty($_SESSION)){
     exit();
 }
 
-
-//if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-
     if (isset($_POST['cratepost'])) {
         $tile = mysqli_real_escape_string($con, $_POST['title']);
         $content = mysqli_real_escape_string($con, $_POST['content']);
@@ -30,9 +26,9 @@ if(empty($_SESSION)){
     
         $image_path = "images/" . $image;
     
-        // Move uploaded image to the desired directory
+
         if (move_uploaded_file($image_tmp, $image_path)) {
-            // Insert the post data into the database
+
             $r = mysqli_query($con, "INSERT INTO posts(title, content, image, category, status, user_id) 
                                     VALUES ('$tile', '$content', '$image_path', '$category', '$status', $user_id_post)");
     
@@ -48,7 +44,7 @@ if(empty($_SESSION)){
     }
     
 
-//}
+
 ?>
 
 <!DOCTYPE html>
@@ -92,8 +88,8 @@ if(empty($_SESSION)){
                 </div>
                 <div>
                     <select name="status" id="" class="form-select mt-2">
-                        <option value="draft">Draft</option>
-                        <option value="publish">Publish</option>
+                        <option value="draft">draft</option>
+                        <option value="published">published</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2" name="cratepost">Create Post</button>
