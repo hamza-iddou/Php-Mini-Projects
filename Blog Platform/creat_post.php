@@ -3,14 +3,13 @@ include "conn.php";
 session_start();
 $select_user = mysqli_query($con, "SELECT * FROM users WHERE id='" . $_SESSION['user_id'] . "'");
 $user = mysqli_fetch_all($select_user,MYSQLI_ASSOC);
-
 $message = "";
 
 if(empty($_SESSION)){
     header("location:login.php");
+    
     exit();
 }
-
     if (isset($_POST['cratepost'])) {
         $tile = mysqli_real_escape_string($con, $_POST['title']);
         $content = mysqli_real_escape_string($con, $_POST['content']);
@@ -19,19 +18,16 @@ if(empty($_SESSION)){
         $image = $_FILES['image']['name'];
         $image_tmp = $_FILES['image']['tmp_name'];
         $user_id_post = (int) $_SESSION['user_id'];
-    
+
         if (!is_dir("images")) {
             mkdir("images");
         }
-    
         $image_path = "images/" . $image;
-    
 
         if (move_uploaded_file($image_tmp, $image_path)) {
 
             $r = mysqli_query($con, "INSERT INTO posts(title, content, image, category, status, user_id) 
                                     VALUES ('$tile', '$content', '$image_path', '$category', '$status', $user_id_post)");
-    
             if ($r) {
                 header("Location: index.php");
                 exit();
@@ -42,9 +38,6 @@ if(empty($_SESSION)){
             $message = "Failed to upload image.";
         }
     }
-    
-
-
 ?>
 
 <!DOCTYPE html>

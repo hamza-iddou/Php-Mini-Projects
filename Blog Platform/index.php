@@ -7,9 +7,6 @@ if(empty($_SESSION['user_id'])){
     exit();
 }
 
-
-
-
 $post_sql = mysqli_query($con, "SELECT * FROM posts");
 $posts = mysqli_fetch_all($post_sql, MYSQLI_ASSOC);
 
@@ -31,7 +28,6 @@ if (isset($_GET['q'])) {
   exit();
 }
 
-
     if(isset($_POST['creat'])){
         header("Location: creat_post.php");
         exit();
@@ -43,11 +39,6 @@ if (isset($_GET['q'])) {
         header("Location: login.php");
         exit();
     }
-
-     
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +70,7 @@ if (isset($_GET['q'])) {
       </div>
     </div>
 
-    <!-- Posts Section -->
+    
     <div class="col-md-6 mb-4">
     <div id="posts">
       <?php $posts = array_reverse($posts); ?>
@@ -105,7 +96,7 @@ if (isset($_GET['q'])) {
       </div>
     </div>
 
-    <!-- Recent Posts + Filter Section -->
+    
     <div class="col-md-3 mb-4">
       <div class="card p-3">
         <h6>Recent Posts</h6>

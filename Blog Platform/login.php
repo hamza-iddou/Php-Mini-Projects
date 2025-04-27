@@ -21,10 +21,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_password'] = $user['password'];
         $_SESSION['user_name'] = $user['username'];
         $_SESSION['user_image'] = $user['image'];
+        $_SESSION['is_admin'] = $user['is_admin'];
         $err = false;
         $message = "Login has been successful";
+        if($_SESSION['is_admin']){
+            header("Location: admindashborad.php");
+            exit();
+        }else{
+
+        
         header("Location: index.php");
         exit();
+    }
         }
     }else{
         $message = "Invalid password or email";
