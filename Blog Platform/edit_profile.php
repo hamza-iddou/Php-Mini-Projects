@@ -45,6 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $_SESSION['user_email'] = $u_email;
                     $_SESSION['user_password'] = $u_password;
                     $_SESSION['user_image'] = $image_path;
+                    $_SESSION['admin'] = $is_admin;
                     header("Location: index.php");
                     exit();
                     

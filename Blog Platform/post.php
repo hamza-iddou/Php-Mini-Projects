@@ -26,18 +26,19 @@ $fetchs_user = mysqli_fetch_assoc($r_user);
     <title>Blog : <?=$fetchs['title']?></title>
 </head>
 <body>
-<h1 class="text-center text-light bg-dark p-5">Welcome to our Blog</h1>
-    <div class="container">
-    <h6 class=""><?=$fetchs['title'] ?></h6>
-    </div>
-    <div class="container">
-        <img src="<?= $fetchs['image']?>" class="postimage">
-        <p><?= $fetchs['content']?></p>
-        <h6>created by <span class="text-primary"><?=$fetchs_user['username']?></span></h6>
-        <h6>at <span class="text-primary">
-    <?= date('Y-m-d', strtotime($fetchs['created_at'])) ?>
-</span></h6>
-    <a href="index.php" class="btn btn-danger">Back</a>
-    </div>    
+<h1 class="text-center text-light bg-dark p-5">Welcome to Our Blog</h1>
+<div class="container text-center my-5">
+    <h2 class="mb-4"><?= htmlspecialchars($fetchs['title']) ?></h2>
+    <img src="<?= htmlspecialchars($fetchs['image']) ?>" class="postimage d-block mx-auto mb-4" alt="Post Image">
+    <p class="lead" style="text-align: justify;"><?= htmlspecialchars($fetchs['content']) ?></p>
+    <h6 class="mt-4">Created by 
+        <span class="text-primary"><?= htmlspecialchars($fetchs_user['username']) ?></span>
+    </h6>
+    <h6>At 
+        <span class="text-primary"><?= date('Y-m-d', strtotime($fetchs['created_at'])) ?></span>
+    </h6>
+    <a href="index.php" class="btn btn-danger mt-4">Back</a>
+</div>
+
 </body>
 </html>
