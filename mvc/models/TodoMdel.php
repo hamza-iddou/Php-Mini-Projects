@@ -33,6 +33,11 @@ class TodoModel{
         $todos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $todos;
     }
+
+    public function add($title){
+        $stmt = $this->pdo->prepare("INSERT INTO todo (title) VALUES ?");
+        $stmt->execute([$title]);
+    }
     
 
 
