@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `todo` (
   PRIMARY KEY (`id`) 
 ); 
 
-INSERT INTO TABLE todo   (title, done) VALUES  ("Clean the house", 0), ("mach die Aufgaben", 0);
+INSERT INTO  todo   (title, done) VALUES  ("Clean the house", 0), ("mach die Aufgaben", 0), ("Hit the Gym", 0);

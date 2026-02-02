@@ -8,12 +8,12 @@
 </head>
 
 <body>
-    <form action="">
-        <input type="text">
-        <button>search</button>
+    <form action="" method="post">
+        <input type="text" name="search">
+        <button name="searchBtn">search</button>
     </form>
     <?php foreach ($todos as $todo): ?>
-        <div style="display: flex; align-items:center;">
+        <div style="display: flex; align-items:center; background:<?= $todo['done'] == 0 ? 'red' : 'green' ?>" >
             <p><?= $todo['title'] ?></p>
 
             <form action="" method="post">
@@ -21,6 +21,7 @@
                 <button name="done">done</button>
                 </form>
             <form action="" method="post">
+                 <input type="hidden" name="id" value="<?= $todo['id']?>">   
                 <button name="delete" onclick="confirm('do you want really delete this todo ?')">x</button>
                 </form>
             

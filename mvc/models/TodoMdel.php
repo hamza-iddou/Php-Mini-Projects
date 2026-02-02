@@ -13,7 +13,12 @@ class TodoModel{
     }
 
     public function done($id){
-        $stmt = $this->pdo->prepare("UPDATE todo SET done = 1 WHERE id = ?");
+        $val = 0;
+        $secondTodo = $this->pdo->query("SELECT * FROM todo WHERE id = $id")->fetch(PDO::FETCH_ASSOC);
+        if($secondTodo['done'] == 0){
+            $val = 1;
+        }
+        $stmt = $this->pdo->prepare("UPDATE todo SET done = $val WHERE id = ?");
         $stmt->execute([$id]);
     }
 
