@@ -10,9 +10,14 @@ class TodoController{
     public function index(){
         $todos = $this->todoModels->all();
 
-        if(){
-            
-        }
+       if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'], $_POST['done'])){
+            $id = $_POST['id'];
+            $this->todoModels->done($id);
+            header("Location: index.php");
+       }
+
+       
+        
         require "views/index.php";
     }
 
