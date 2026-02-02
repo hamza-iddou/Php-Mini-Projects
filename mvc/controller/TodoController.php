@@ -31,6 +31,15 @@ class TodoController
             $todos = $this->todoModels->search($value);
         }
 
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['add'], $_POST['title'])){
+            $title = $_POST['title'];
+            $this->todoModels->add($title);
+            header("Location: index.php");
+            
+            exit;
+        }
+
+
 
         require "views/index.php";
     }

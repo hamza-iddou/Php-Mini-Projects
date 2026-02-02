@@ -12,6 +12,12 @@
         <input type="text" name="search">
         <button name="searchBtn">search</button>
     </form>
+
+    <form action="" method="post">
+        <input type="text" name="title">
+        <button name="add">add</button>
+    </form>
+    
     <?php foreach ($todos as $todo): ?>
         <div style="display: flex; align-items:center; background:<?= $todo['done'] == 0 ? 'red' : 'green' ?>" >
             <p><?= $todo['title'] ?></p>

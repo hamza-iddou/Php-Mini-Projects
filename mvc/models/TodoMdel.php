@@ -35,7 +35,7 @@ class TodoModel{
     }
 
     public function add($title){
-        $stmt = $this->pdo->prepare("INSERT INTO todo (title) VALUES ?");
+        $stmt = $this->pdo->prepare("INSERT INTO todo (title) VALUES (?)");
         $stmt->execute([$title]);
     }
     
